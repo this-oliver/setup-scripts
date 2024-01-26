@@ -1,7 +1,12 @@
-setup-basics=./setup-basics.sh
-setup-ohh-my-zsh=./setup-ohh-my-zsh.sh
-setup-docker=./setup-docker-engine.sh
-setup-nodejs=./setup-node.sh
+# get path to script directory
+curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+script_dir="$curr_dir/scripts"
+setup-basics="$script_dir/setup-basics.sh"
+setup-docker="$script_dir/setup-docker.sh"
+setup-ohh-my-zsh="$script_dir/setup-oh-my-zsh.sh"
+setup-nodejs="$script_dir/setup-nodejs.sh"
+
+echo "Script directory: $script_dir"
 
 # ask user if they want to install docker
 echo "Do you want to install docker? (Y/n)"
