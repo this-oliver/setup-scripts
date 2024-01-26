@@ -10,7 +10,7 @@ The scripts provide the following features:
 
 - install basic tools (i.e. `git`, `curl`, `bat` and `nmap`)
 - setup docker
-- setup ohh-my-zsh
+- setup oh-my-zsh
 - setup nodejs
 
 ## Usage
