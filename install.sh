@@ -17,9 +17,19 @@ function check_response {
     fi
 }
 
-# function that checks if response is valid version number
+# function that checks if version number is valid
 function check_version {
     if [[ "$1" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# function that checks if oh-my-zsh theme is valid-ish
+function check_theme {
+  # lowercase letters, numbers, hyphens and + are allowed
+    if [[ "$1" =~ ^[a-z0-9-+]*$ ]]; then
         return 0
     else
         return 1
@@ -36,6 +46,32 @@ read install_oh_my_zsh
 if ! check_response $install_oh_my_zsh; then
     echo "Invalid response: $install_oh_my_zsh"
     exit 1
+fi
+
+if [ "$install_oh_my_zsh" = "Y" ] || [ "$install_oh_my_zsh" = "y" ] || [ "$install_oh_my_zsh" = "" ]; then
+    # ask user if they want to set theme
+    echo "Do you want to set a theme for oh-my-zsh? (Y/n)"
+    read set_theme
+
+    # throw error if response is invalid
+    if ! check_response $set_theme; then
+        echo "Invalid response: $set_theme"
+        exit 1
+    fi
+
+    # if user wants to set theme, ask for theme name
+    if [ "$set_theme" = "Y" ] || [ "$set_theme" = "y" ] || [ "$set_theme" = "" ]; then
+        echo "Which theme do you want to set? (leave blank for default)"
+        read theme
+
+        # throw error if theme is invalid and not blank
+        if ! check_theme $theme; then
+            if ! [ "$theme" = "" ]; then
+                echo "Invalid theme name: $theme"
+                exit 1
+            fi
+        fi
+    fi
 fi
 
 # ask user if they want to install docker
