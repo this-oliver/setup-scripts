@@ -22,6 +22,9 @@ git clone https://github.com/this-oliver/linux-starter-pack.git
 # change into the directory
 cd linux-starter-pack
 
+# make the script executable
+chmod +x install.sh
+
 # run the script
-./scripts/install.sh
+./install.sh
 ```
