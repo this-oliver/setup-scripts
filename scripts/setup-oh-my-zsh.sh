@@ -20,4 +20,8 @@ if [ "$theme" != "" ]; then
     sed -i "s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"$theme\"/g" ~/.zshrc
 fi
 
+# set auto suggestion and syntax highlighting plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 echo "Oh-my-zsh installed successfully (restart terminal to see changes)"
