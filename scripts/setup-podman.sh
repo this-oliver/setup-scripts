@@ -13,7 +13,7 @@ utility="Podman"
 system=$(get_platform)
 platform_supported=1
 
-if is_linux; then
+if is_linux || is_mac; then
   platform_supported=0
 fi
 
@@ -25,7 +25,17 @@ if is_linux; then
   apt install podman -y
 fi
 
+if is_mac; then
+  echo "installing podman..."
+  brew install podman
+fi
+
 # ==== CONFIGURATION
+
+if is_linux || is_mac; then
+  podman machine init
+  podman machine start
+fi
 
 # ==== FEEDBACK
 

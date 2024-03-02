@@ -9,14 +9,12 @@ utility="Oh-my-zsh"
 system=$(get_platform)
 platform_supported=1
 
-if is_linux; then
+if is_linux || is_mac; then
   platform_supported=0
 fi
 
 # ==== INSTALLATION
 
-# capture theme name in first argument
-theme=$1
 
 if is_linux; then
   # install zsh
@@ -31,10 +29,23 @@ if is_linux; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
+if is_mac; then
+  # install zsh
+  echo "installing oh-my-zsh..."
+  brew install zsh
+
+  # make zsh default shell (form apple silicon macs)
+  chsh -s /opt/homebrew/bin/zsh
+
+  # install oh-my-zsh
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
 # ==== CONFIGURATION
+# capture theme name in first argument
+theme=$1
 
-if is_linux; then
+if is_linux || is_mac; then
   # if theme is provided, set theme
   if [ "$theme" != "" ]; then
       sed -i "s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"$theme\"/g" ~/.zshrc

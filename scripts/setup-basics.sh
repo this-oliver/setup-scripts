@@ -14,7 +14,7 @@ utility="Basic tools"
 system=$(get_platform)
 platform_supported=1
 
-if is_linux; then
+if is_linux || is_mac; then
   platform_supported=0
 fi
 
@@ -22,8 +22,15 @@ fi
 
 if is_linux; then
   apt install curl git nmap bat -y
-  
-  # ==== CONFIGURATION
+fi
+
+if is_mac; then
+  brew install curl git nmap bat
+fi
+
+# ==== CONFIGURATION
+
+if is_linux || is_mac; then
   # check if bat is renamed to batcat
   batcat_path=$(which batcat)
 

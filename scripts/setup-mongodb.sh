@@ -9,14 +9,16 @@ utility="MongoDB"
 system=$(get_platform)
 platform_supported=1
 
-if is_linux; then
+if is_linux || is_mac; then
   platform_supported=0
 
   # check if system supports mongodb specifically (should have the word "jammy" or "focal")
-  system=$(lsb_release -c | grep -E "jammy|focal")
+  if is_linux; then
+    system=$(lsb_release -c | grep -E "jammy|focal")
 
-  if [ "$system" != "" ]; then
-      platform_supported=1
+    if [ "$system" != "" ]; then
+        platform_supported=1
+    fi
   fi
 fi
 
@@ -33,11 +35,9 @@ if is_linux && $platform_supported; then
 
   # install mongodb
   apt install mongodb-org
-fi
 
-# ==== CONFIGURATION
+  # ==== CONFIGURATION
 
-if is_linux && $platform_supported; then
   # start mongod service
   systemctl start mongod
 
@@ -50,7 +50,17 @@ if is_linux && $platform_supported; then
   # sudo systemctl daemon-reload
 fi
 
+if is_mac; then
+  echo "installing mongodb..."
+  brew tap mongodb/brew
+  brew update
+  brew install mongodb-community@7.0
 
+  # ==== CONFIGURATION
+  
+  # start mongod service
+  brew services start mongodb-community@7.0
+fi
 
 # ==== FEEDBACK
 

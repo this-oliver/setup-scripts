@@ -11,7 +11,7 @@ utility="Nodejs"
 system=$(get_platform)
 platform_supported=1
 
-if is_linux; then
+if is_linux || is_mac; then
   platform_supported=0
 fi
 
@@ -38,8 +38,13 @@ if is_linux; then
   npm install -g pnpm
 fi
 
-# ==== CONFIGURATION
+if is_mac; then
+  echo "installing nodejs..."
+  brew install node@$node_version
 
+  # install pnpm globally
+  npm install -g pnpm
+fi
 
 # ==== FEEDBACK
 

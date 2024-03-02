@@ -9,7 +9,7 @@ utility="Docker"
 system=$(get_platform)
 platform_supported=1
 
-if is_linux; then
+if is_linux || is_mac; then
   platform_supported=0
 fi
 
@@ -35,9 +35,17 @@ if is_linux; then
 
   # Install latest docker version
   apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+fi
 
-  # Run test container
-  docker run hello-world
+if is_mac; then
+  echo "installing docker..."
+  softwareupdate --install-rosetta
+
+  # install docker desktop (docker is only available via docker desktop)
+  curl https://desktop.docker.com/mac/main/arm64/Docker.dmg --output Docker.dmg
+  hdiutil attach Docker.dmg
+  Volumes/Docker/Docker.app/Contents/MacOS/install
+  hdiutil detach /Volumes/Docker
 fi
 
 # ==== FEEDBACK
