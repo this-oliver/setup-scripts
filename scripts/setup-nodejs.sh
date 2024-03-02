@@ -7,30 +7,46 @@
 curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $curr_dir/utils/platform.sh
 
+utility="Nodejs"
+system=$(get_platform)
+platform_supported=1
+
+if is_linux; then
+  platform_supported=0
+fi
+
 # ==== INSTALLATION
 
 # read argument for nodejs version
 node_version=$1
 
-echo "installing nodejs..."
+if is_linux; then
+  echo "installing nodejs..."
 
-# if no version is provided, install latest
-if [ "$node_version" = "" ]; then
-    apt install nodejs npm -y
+  # if no version is provided, install latest
+  if [ "$node_version" = "" ]; then
+      apt install nodejs npm -y
+  fi
+
+  # if version is provided, install that version
+  if [ "$node_version" != "" ]; then
+      curl -fsSL https://deb.nodesource.com/setup_$node_version | sudo -E bash -
+      apt-get install -y nodejs
+  fi
+
+  # install pnpm globally
+  npm install -g pnpm
 fi
-
-# if version is provided, install that version
-if [ "$node_version" != "" ]; then
-    curl -fsSL https://deb.nodesource.com/setup_$node_version | sudo -E bash -
-    apt-get install -y nodejs
-fi
-
-# install pnpm globally
-npm install -g pnpm
 
 # ==== CONFIGURATION
 
 
 # ==== FEEDBACK
 
-echo "nodejs (+npm +pnpm) installed successfully"
+if [ $platform_supported -eq 0 ]; then
+  echo "$utility installed successfully"
+fi
+
+if [ $platform_supported -ne 0 ]; then
+  echo "$utility is not supported by the Setup Scripts on this system ($system)"
+fi

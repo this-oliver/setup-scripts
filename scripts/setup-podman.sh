@@ -9,15 +9,30 @@
 curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $curr_dir/utils/platform.sh
 
+utility="Podman"
+system=$(get_platform)
+platform_supported=1
+
+if is_linux; then
+  platform_supported=0
+fi
 
 # ==== INSTALLATION
 
-echo "installing podman..."
-apt update
-apt install podman -y
+if is_linux; then
+  echo "installing podman..."
+  apt update
+  apt install podman -y
+fi
 
 # ==== CONFIGURATION
 
 # ==== FEEDBACK
 
-echo "podman installed successfully"
+if [ $platform_supported -eq 0 ]; then
+  echo "$utility installed successfully"
+fi
+
+if [ $platform_supported -ne 0 ]; then
+  echo "$utility is not supported by the Setup Scripts on this system ($system)"
+fi

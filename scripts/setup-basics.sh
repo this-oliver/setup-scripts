@@ -10,23 +10,34 @@
 curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $curr_dir/utils/platform.sh
 
+utility="Basic tools"
+system=$(get_platform)
+platform_supported=1
+
+if is_linux; then
+  platform_supported=0
+fi
+
 # ==== INSTALLATION
 
-# install basic tools
-sudo apt update
-sudo apt install curl git nmap bat -y
+if is_linux; then
+  apt install curl git nmap bat -y
+  
+  # ==== CONFIGURATION
+  # check if bat is renamed to batcat
+  batcat_path=$(which batcat)
 
-
-# ==== CONFIGURATION
-
-# check if bat is renamed to batcat
-batcat_path=$(which batcat)
-
-# if batcat is found, set alias for batcat
-if [ "$batcat_path" != "" ]; then
-    set_run_command "alias bat=batcat"
+  # if batcat is found, set alias for batcat
+  if [ "$batcat_path" != "" ]; then
+      set_run_command "alias bat=batcat"
+  fi
 fi
 
 # ==== FEEDBACK
+if [ $platform_supported -eq 0 ]; then
+  echo "$utility installed successfully"
+fi
 
-echo "Basic tools have been installed successfully!"
+if [ $platform_supported -ne 0 ]; then
+  echo "$utility is not supported by the Setup Scripts on this system ($system)"
+fi

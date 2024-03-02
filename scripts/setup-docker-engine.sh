@@ -5,32 +5,47 @@
 curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $curr_dir/utils/platform.sh
 
+utility="Docker"
+system=$(get_platform)
+platform_supported=1
+
+if is_linux; then
+  platform_supported=0
+fi
+
 # ==== INSTALLATION
 
-echo "installing docker..."
+if is_linux; then
+  echo "installing docker..."
+  # Uninstall conflicting scripts
+  for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
-# Uninstall conflicting scripts
-for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
+  # Add Docker's official GPG key:
+  apt install ca-certificates curl gnupg
+  install -m 0755 -d /etc/apt/keyrings
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 
-# Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl gnupg
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  # Add the repository to Apt sources:
+  echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+    tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
+  apt update
 
-# Install latest docker version
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  # Install latest docker version
+  apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# Run test container
-sudo docker run hello-world
+  # Run test container
+  docker run hello-world
+fi
 
 # ==== FEEDBACK
 
-echo "docker installed successfully"
+if [ $platform_supported -eq 0 ]; then
+  echo "$utility installed successfully"
+fi
+
+if [ $platform_supported -ne 0 ]; then
+  echo "$utility is not supported by the Setup Scripts on this system ($system)"
+fi

@@ -5,54 +5,59 @@
 curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $curr_dir/utils/platform.sh
 
-# ==== INSTALLATION
+utility="MongoDB"
+system=$(get_platform)
+platform_supported=1
 
-# supported is false by default
-supported=1
+if is_linux; then
+  platform_supported=0
 
-# check if system supports mongodb (should have the word "jammy" or "focal")
-system=$(lsb_release -c | grep -E "jammy|focal")
+  # check if system supports mongodb specifically (should have the word "jammy" or "focal")
+  system=$(lsb_release -c | grep -E "jammy|focal")
 
-if [ "$system" != "" ]; then
-    supported=0
+  if [ "$system" != "" ]; then
+      platform_supported=1
+  fi
 fi
 
-# install keys and setup mongodb
-if $supported; then
-    echo "installing mongodb..."
-    apt-get update
+# ==== INSTALLATION
 
-    # setup keys
-    apt-get install gnupg curl
-    curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
-    echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+if is_linux && $platform_supported; then
+  echo "installing mongodb..."
+  apt-get update
 
-    # install mongodb
-    apt-get install -y mongodb-org
+  # setup keys
+  apt install gnupg curl
+  curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+  # install mongodb
+  apt install mongodb-org
 fi
 
 # ==== CONFIGURATION
 
-if $supported; then
-    # start mongod service
-    systemctl start mongod
+if is_linux && $platform_supported; then
+  # start mongod service
+  systemctl start mongod
 
-    # ensure that mongod starts on boot
-    sudo systemctl enable mongod
-    
-    # if you receive error: Failed to start mongod.service: Unit mongod.service not found.
-    # run the following command to fix the error
-    #
-    # sudo systemctl daemon-reload
+  # ensure that mongod starts on boot
+  sudo systemctl enable mongod
+  
+  # if you receive error: Failed to start mongod.service: Unit mongod.service not found.
+  # run the following command to fix the error
+  #
+  # sudo systemctl daemon-reload
 fi
+
 
 
 # ==== FEEDBACK
 
-if $supported; then
-    echo "MongoDB installed successfully"
+if [ $platform_supported -eq 0 ]; then
+  echo "$utility installed successfully"
 fi
 
-if ! $supported; then
-    echo "MongoDB is not supported on this system"
+if [ $platform_supported -ne 0 ]; then
+  echo "$utility is not supported by the Setup Scripts on this system ($system)"
 fi
