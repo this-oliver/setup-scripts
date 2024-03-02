@@ -2,41 +2,54 @@
 # It is a popular choice for modern applications because it is easy to adjust
 # and scale.
 
-# check if system supports mongodb (should have the word "jammy" or "focal")
-supported=$(lsb_release -c | grep -E "jammy|focal")
+# ==== INSTALLATION
 
-# if system is not supported, exit
-if [ "$supported" = "" ]; then
-    echo "This script only supports Ubuntu 22.04 (Jammy Jellyfish) and 20.04 (Focal Fossa)"
-    exit 1
+# supported is false by default
+supported=1
+
+# check if system supports mongodb (should have the word "jammy" or "focal")
+system=$(lsb_release -c | grep -E "jammy|focal")
+
+if [ "$system" != "" ]; then
+    supported=0
 fi
 
-sudo apt-get install gnupg curl
+# install keys and setup mongodb
+if $supported; then
+    echo "installing mongodb..."
+    apt-get update
 
-curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
-   sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \
-   --dearmor
+    # setup keys
+    apt-get install gnupg curl
+    curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+    echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 
-echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+    # install mongodb
+    apt-get install -y mongodb-org
+fi
 
-sudo apt-get update
+# ==== CONFIGURATION
 
-sudo apt-get install -y mongodb-org
+if $supported; then
+    # start mongod service
+    systemctl start mongod
 
-sudo systemctl start mongod
+    # ensure that mongod starts on boot
+    sudo systemctl enable mongod
+    
+    # if you receive error: Failed to start mongod.service: Unit mongod.service not found.
+    # run the following command to fix the error
+    #
+    # sudo systemctl daemon-reload
+fi
 
-# if you receive error: Failed to start mongod.service: Unit mongod.service not found.
-# run the following command to fix the error
-#
-# sudo systemctl daemon-reload
 
-# check that mongod is running
-sudo systemctl status mongod
+# ==== FEEDBACK
 
-# start mongod on boot
-sudo systemctl enable mongod
+if $supported; then
+    echo "MongoDB installed successfully"
+fi
 
-# prompt user
-echo "MongoDB installed successfully"
-echo "To start MongoDB, run: mongosh"
-
+if ! $supported; then
+    echo "MongoDB is not supported on this system"
+fi

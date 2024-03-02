@@ -7,9 +7,14 @@
 #   - nmap: a network exploration tool and security / port scanner
 #   - bat: a cat clone with syntax highlighting and Git integration
 
+# ==== INSTALLATION
+
 # install basic tools
 sudo apt update
 sudo apt install curl git nmap bat -y
+
+
+# ==== CONFIGURATION
 
 # check if bat is renamed to batcat
 batcat_path=$(which batcat)
@@ -30,3 +35,7 @@ if [ "$batcat_path" != "" ]; then
         source ~/.bashrc
     fi
 fi
+
+# ==== FEEDBACK
+
+echo "Basic tools have been installed successfully!"

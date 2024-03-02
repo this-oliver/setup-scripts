@@ -3,10 +3,12 @@
 # manager that allows you to install and manage libraries and frameworks
 # for your Python projects.
 
-echo "installing python..."
+# ==== INSTALLATION
 
-# install python3
-sudo apt install python3 python3-pip
+echo "installing python..."
+apt install python3 python3-pip
+
+# ==== CONFIGURATION
 
 # find if zsh is installed
 zsh_path=$(which zsh)
@@ -24,5 +26,7 @@ if [ "$zsh_path" = "" ]; then
     echo "alias pip=pip3" >> ~/.bashrc
     source ~/.bashrc
 fi
+
+# ==== FEEDBACK
 
 echo "python installed successfully"

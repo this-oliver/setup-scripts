@@ -2,6 +2,8 @@
 # and all its dependencies together into software packages called
 # containers which can be run on any machine that also has Docker installed.
 
+# ==== INSTALLATION
+
 echo "installing docker..."
 
 # Uninstall conflicting scripts
@@ -25,5 +27,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 # Run test container
 sudo docker run hello-world
+
+# ==== FEEDBACK
 
 echo "docker installed successfully"

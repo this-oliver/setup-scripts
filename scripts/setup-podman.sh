@@ -6,9 +6,14 @@
 # security concerns. Apart from that, Podman is compatible with Docker
 # and can run Docker containers and images.
 
-echo "installing podman..."
+# ==== INSTALLATION
 
-sudo apt update
-sudo apt install podman -y
+echo "installing podman..."
+apt update
+apt install podman -y
+
+# ==== CONFIGURATION
+
+# ==== FEEDBACK
 
 echo "podman installed successfully"
