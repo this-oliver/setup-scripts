@@ -1,3 +1,9 @@
+# JAVASCRIPT is a popular programming language used for web development.
+# NODEJS is a JavaScript runtime built on Chrome's V8 JavaScript engine
+# which allows you to run JavaScript programs. It is accompanied by npm
+# (Node Package Manager) which is a package manager that allows you to
+# install and manage libraries and frameworks for your Nodejs projects.
+
 echo "installing nodejs..."
 
 # read argument for nodejs version

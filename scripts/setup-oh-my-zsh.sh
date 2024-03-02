@@ -1,3 +1,7 @@
+# ZSH is a shell designed for interactive use. OH-MY-ZSH 
+# is a framework for managing zsh configuration. It comes 
+# with a lot of plugins and themes.
+
 # capture theme name in first argument
 theme=$1
 

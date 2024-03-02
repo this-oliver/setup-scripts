@@ -1,3 +1,8 @@
+# PYTHON is a popular programming language. Python3 is the latest
+# version of the language. It is accompanied by pip3 which is a package
+# manager that allows you to install and manage libraries and frameworks
+# for your Python projects.
+
 echo "installing python..."
 
 # install python3

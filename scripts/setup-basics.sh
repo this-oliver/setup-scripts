@@ -1,8 +1,15 @@
-# update
-sudo apt update
+# This script installs some common tools that are used in development
+# environments.
+# 
+# Below is a short description of each tool:
+#   - curl: a command line tool and library for transferring data with URLs
+#   - git: a distributed version control system
+#   - nmap: a network exploration tool and security / port scanner
+#   - bat: a cat clone with syntax highlighting and Git integration
 
 # install basic tools
-sudo apt install curl git bat nmap -y
+sudo apt update
+sudo apt install curl git nmap bat -y
 
 # check if bat is renamed to batcat
 batcat_path=$(which batcat)

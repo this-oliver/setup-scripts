@@ -1,4 +1,6 @@
-# From docker's official install script: https://docs.docker.com/engine/install/debian/
+# DOCKER is a containerization platform that packages your application
+# and all its dependencies together into software packages called
+# containers which can be run on any machine that also has Docker installed.
 
 echo "installing docker..."
 
