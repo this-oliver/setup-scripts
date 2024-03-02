@@ -21,12 +21,10 @@ if [ "$batcat_path" != "" ]; then
 
     # set alias for bat (note: some debian based distros use batcat instead of bat)
     if [ "$zsh_path" != "" ]; then
-        echo "alias cat=batcat" >> ~/.zshrc
-        source ~/.zshrc
+        echo "alias bat=batcat" >> ~/.zshrc
     fi
 
     if [ "$zsh_path" = "" ]; then
-        echo "alias cat=batcat" >> ~/.bashrc
-        source ~/.bashrc
+        echo "alias bat=batcat" >> ~/.bashrc
     fi
 fi
