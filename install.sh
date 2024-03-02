@@ -3,7 +3,7 @@ curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 scripts_dir="$curr_dir/scripts"
 
 # get some util functions
-source $curr_dir/scripts/utils/checker.sh
+source $scripts_dir/utils/checker.sh
 
 echo "
 Welcome to the setup script!
@@ -111,6 +111,9 @@ bash $scripts_dir/setup-basics.sh
 # this if statement blocks the script from running the rest of the install scripts if the
 # user doesn't want to customize their setup
 if ! is_yes $customize; then
+    # reset the update flag
+    reset_update_flag
+
     echo "\nSetup complete!"
     exit 0
 fi
@@ -144,3 +147,5 @@ if is_yes $install_oh_my_zsh; then
     echo "\nRunning oh-my-zsh install script..."
     bash $scripts_dir/setup-oh-my-zsh.sh $theme
 fi
+
+reset_update_flag
