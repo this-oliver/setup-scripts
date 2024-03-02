@@ -37,7 +37,7 @@ fi
 if is_yes $customize; then
   # Docker
 
-  read -p "Do you want to install docker? (Y/n): " install_docker
+  read -p "Do you want to install docker? (y/N): " install_docker
 
   if ! check_response $install_docker; then
       echo "Invalid response: $install_docker"
@@ -46,7 +46,7 @@ if is_yes $customize; then
 
   # Podman
 
-  read -p "Do you want to install podman? (Y/n): " install_podman
+  read -p "Do you want to install podman? (y/N): " install_podman
 
   if ! check_response $install_podman; then
       echo "Invalid response: $install_podman"
@@ -55,7 +55,7 @@ if is_yes $customize; then
 
   # Nodejs
 
-  read -p "Do you want to install nodejs? (Y/n): " install_nodejs
+  read -p "Do you want to install nodejs? (y/N): " install_nodejs
 
   if ! check_response $install_nodejs; then
       echo "Invalid response: $install_nodejs"
@@ -75,7 +75,7 @@ if is_yes $customize; then
 
   # Python
 
-  read -p "Do you want to install python? (Y/n): " install_python
+  read -p "Do you want to install python? (y/N): " install_python
 
   if ! check_response $install_python; then
       echo "Invalid response: $install_python"
@@ -84,7 +84,7 @@ if is_yes $customize; then
 
   # MongoDB
 
-  read -p "Do you want to install mongodb? (Y/n): " install_mongodb
+  read -p "Do you want to install mongodb? (y/N): " install_mongodb
 
   if ! check_response $install_mongodb; then
       echo "Invalid response: $install_mongodb"
@@ -93,7 +93,7 @@ if is_yes $customize; then
 
   # oh-my-zsh
 
-  read -p "Do you want to install zsh + oh-my-zsh? (Y/n): " install_oh_my_zsh
+  read -p "Do you want to install zsh + oh-my-zsh? (y/N): " install_oh_my_zsh
 
   # throw error if response is invalid
   if ! check_response $install_oh_my_zsh; then
@@ -115,32 +115,32 @@ if ! is_yes $customize; then
     exit 0
 fi
 
-if is_yesish $install_docker; then
+if is_yes $install_docker; then
     echo "\nRunning docker install script..."
     bash $scripts_dir/setup-docker-engine.sh
 fi
 
-if is_yesish $install_podman; then
+if is_yes $install_podman; then
     echo "\nRunning podman install script..."
     bash $scripts_dir/setup-podman.sh
 fi
 
-if is_yesish $install_nodejs; then
+if is_yes $install_nodejs; then
     echo "\nRunning nodejs install script..."
     bash $scripts_dir/setup-nodejs.sh $node_version
 fi
 
-if is_yesish $install_python; then
+if is_yes $install_python; then
     echo "\nRunning python install script..."
     bash $scripts_dir/setup-python.sh
 fi
 
-if is_yesish $install_mongodb; then
+if is_yes $install_mongodb; then
     echo "\nRunning mongodb install script..."
     bash $scripts_dir/setup-mongodb.sh
 fi
 
-if is_yesish $install_oh_my_zsh; then
+if is_yes $install_oh_my_zsh; then
     echo "\nRunning oh-my-zsh install script..."
     bash $scripts_dir/setup-oh-my-zsh.sh $theme
 fi
