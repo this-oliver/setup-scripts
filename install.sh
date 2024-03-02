@@ -62,7 +62,7 @@ if is_yes $customize; then
       exit 1
   fi
 
-  if is_yes $install_nodejs || [ "$install_nodejs" = "" ]; then
+  if is_yes $install_nodejs ]; then
       read -p "Which version of nodejs do you want to install? (leave blank for latest): " node_version
 
       if ! check_version $node_version; then
