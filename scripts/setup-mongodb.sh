@@ -2,6 +2,9 @@
 # It is a popular choice for modern applications because it is easy to adjust
 # and scale.
 
+curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $curr_dir/utils/platform.sh
+
 # ==== INSTALLATION
 
 # supported is false by default

@@ -6,6 +6,10 @@
 # security concerns. Apart from that, Podman is compatible with Docker
 # and can run Docker containers and images.
 
+curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $curr_dir/utils/platform.sh
+
+
 # ==== INSTALLATION
 
 echo "installing podman..."

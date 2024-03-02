@@ -3,6 +3,9 @@
 # manager that allows you to install and manage libraries and frameworks
 # for your Python projects.
 
+curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $curr_dir/utils/platform.sh
+
 # ==== INSTALLATION
 
 echo "installing python..."
@@ -10,22 +13,8 @@ apt install python3 python3-pip
 
 # ==== CONFIGURATION
 
-# find if zsh is installed
-zsh_path=$(which zsh)
-
-# if zsh is installed, set python alias in zshrc
-if [ "$zsh_path" != "" ]; then
-    echo "alias python=python3" >> ~/.zshrc
-    echo "alias pip=pip3" >> ~/.zshrc
-    source ~/.zshrc
-fi
-
-# otherwise, set python alias in bashrc
-if [ "$zsh_path" = "" ]; then
-    echo "alias python=python3" >> ~/.bashrc
-    echo "alias pip=pip3" >> ~/.bashrc
-    source ~/.bashrc
-fi
+set_run_command "python=python3"
+set_run_command "pip=pip3"
 
 # ==== FEEDBACK
 

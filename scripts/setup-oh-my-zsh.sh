@@ -2,6 +2,9 @@
 # is a framework for managing zsh configuration. It comes 
 # with a lot of plugins and themes.
 
+curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $curr_dir/utils/platform.sh
+
 # ==== INSTALLATION
 
 # capture theme name in first argument
