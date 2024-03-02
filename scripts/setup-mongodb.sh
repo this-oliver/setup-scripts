@@ -26,20 +26,20 @@ fi
 
 if is_linux && $platform_supported; then
   echo "installing mongodb..."
-  apt-get update
+  update_package_manager
 
   # setup keys
-  apt install gnupg curl
-  curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
-  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+  sudo apt install gnupg curl
+  sudo curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+  sudo echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 
   # install mongodb
-  apt install mongodb-org
+  sudo apt install mongodb-org
 
   # ==== CONFIGURATION
 
   # start mongod service
-  systemctl start mongod
+  sudo systemctl start mongod
 
   # ensure that mongod starts on boot
   sudo systemctl enable mongod

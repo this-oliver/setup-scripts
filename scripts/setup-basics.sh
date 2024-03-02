@@ -21,7 +21,8 @@ fi
 # ==== INSTALLATION
 
 if is_linux; then
-  apt install curl git nmap bat -y
+  update_package_manager
+  sudo apt install curl git nmap bat -y
 fi
 
 if is_mac; then

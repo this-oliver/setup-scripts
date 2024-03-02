@@ -33,6 +33,13 @@ function is_linux() {
 
 # updates the package manager
 function update_package_manager() {
+  arg=$1
+
+  # if arg is equal to 'force', then update the package manager
+  if [ "$arg" = "force" ]; then
+    UPDATED=1
+  fi
+  
   if is_macos; then
     brew update
   fi
@@ -42,6 +49,10 @@ function update_package_manager() {
   fi
 
   UPDATED=0
+}
+
+function reset_update_flag() {
+  UPDATED=1
 }
 
 # installs a package using the appropriate package manager

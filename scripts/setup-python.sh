@@ -18,7 +18,7 @@ fi
 
 if is_linux; then
   echo "installing python..."
-  apt install python3 python3-pip
+  sudo apt install python3 python3-pip
 fi
 
 # ==== CONFIGURATION

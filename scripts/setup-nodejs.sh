@@ -25,17 +25,17 @@ if is_linux; then
 
   # if no version is provided, install latest
   if [ "$node_version" = "" ]; then
-      apt install nodejs npm -y
+      sudo apt install nodejs npm -y
   fi
 
   # if version is provided, install that version
   if [ "$node_version" != "" ]; then
       curl -fsSL https://deb.nodesource.com/setup_$node_version | sudo -E bash -
-      apt-get install -y nodejs
+      sudo apt install nodejs -y
   fi
 
   # install pnpm globally
-  npm install -g pnpm
+  sudo npm install -g pnpm
 fi
 
 if is_mac; then

@@ -22,7 +22,7 @@ fi
 if is_linux; then
   echo "installing podman..."
   apt update
-  apt install podman -y
+  sudo apt install podman -y
 fi
 
 if is_mac; then
