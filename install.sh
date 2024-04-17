@@ -1,5 +1,5 @@
 # get path to script directory
-curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+curr_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 scripts_dir="$curr_dir/scripts"
 
 # get some util functions

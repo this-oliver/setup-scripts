@@ -2,7 +2,7 @@
 # is a framework for managing zsh configuration. It comes 
 # with a lot of plugins and themes.
 
-curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+curr_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $curr_dir/utils/platform.sh
 
 utility="Oh-my-zsh"

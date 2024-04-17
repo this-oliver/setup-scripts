@@ -2,7 +2,7 @@
 # and all its dependencies together into software packages called
 # containers which can be run on any machine that also has Docker installed.
 
-curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+curr_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $curr_dir/utils/platform.sh
 
 utility="Docker"

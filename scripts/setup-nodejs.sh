@@ -4,7 +4,7 @@
 # (Node Package Manager) which is a package manager that allows you to
 # install and manage libraries and frameworks for your Nodejs projects.
 
-curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+curr_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $curr_dir/utils/platform.sh
 
 utility="Nodejs"

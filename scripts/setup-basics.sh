@@ -7,7 +7,7 @@
 #   - nmap: a network exploration tool and security / port scanner
 #   - bat: a cat clone with syntax highlighting and Git integration
 
-curr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+curr_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $curr_dir/utils/platform.sh
 
 utility="Basic tools"
