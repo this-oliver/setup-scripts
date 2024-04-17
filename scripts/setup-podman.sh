@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # PODMAN is a containerization platform, like Docker, that packages
 # your application and all its dependencies together into software
 # packages called containers which can be run on any machine that also
