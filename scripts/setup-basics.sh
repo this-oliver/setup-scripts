@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # This script installs some common tools that are used in development
 # environments.
 # 

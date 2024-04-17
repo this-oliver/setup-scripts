@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 UPDATED=1
 
 # returns the current platform

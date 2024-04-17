@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # returns true if argument is "Y" or "y" or "N" or "n" or empty
 function check_response {
     response=$1

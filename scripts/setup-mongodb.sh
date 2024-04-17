@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # MONGODBD is a no-sql database that is used to store data in a JSON-like format.
 # It is a popular choice for modern applications because it is easy to adjust
 # and scale.
